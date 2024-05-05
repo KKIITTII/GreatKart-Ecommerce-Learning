@@ -164,13 +164,6 @@ dmypy.json
 # Cython debug symbols
 cython_debug/
 
-# From me
-virtual_env
-greatkart_template
-FreeTemplates
-GreatKart_Images
-migrations
-db.sqbpro
 
 # PyCharm
 #  JetBrains specific template is maintained in a separate JetBrains.gitignore that can

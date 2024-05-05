@@ -6,7 +6,7 @@ from cart.models import Cart
 from cart.views import _cart_id
 from django.http import HttpResponse
 from django.db.models import Q
-
+from django.core.exceptions import ObjectDoesNotExist
 
 # Create your views here.
 def store(request, category_slug=None):
@@ -36,14 +36,19 @@ def product_detail(request, category_slug, product_slug):
         single_product = Product.objects.get(category__slug=category_slug, slug=product_slug)
     except Exceptions as E:
         raise E     
-    cart = Cart.objects.get(cart_id=_cart_id(request))
+    
+    try:
+        cart = Cart.objects.get(cart_id=_cart_id(request))     # get cart with present session
+    except ObjectDoesNotExist:
+        cart = Cart.objects.create(cart_id=_cart_id(request))
+        cart.save()
+        
     in_cart = cart.cartitem_set.filter(product=single_product).exists()
     
     context = {
         'single_product': single_product,
         'in_cart': in_cart
     }
-    
     return render(request, 'store/product_detail.html', context)
     
 
