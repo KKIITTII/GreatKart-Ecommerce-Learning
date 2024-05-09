@@ -1,9 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+from django.contrib.auth.hashers import make_password
 
 
 class MyAccountManager(BaseUserManager):
-    def create_user(self, first_name, last_name, username, email, password=None):
+    def create_user(self, first_name, last_name, username, email, password):
         if not email:
             raise ValueError('User must have an email address')
         if not username:
@@ -11,7 +12,6 @@ class MyAccountManager(BaseUserManager):
         user = self.model(
             email = self.normalize_email(email),
             username = username,
-            password = password,
             first_name = first_name,
             last_name = last_name
         )
@@ -64,5 +64,5 @@ class Account(AbstractBaseUser):
         return self.is_admin
     
     # get permission for all module in app
-    def has_module_perms(self, add_label):
+    def has_module_perms(self, app_label):
         return True

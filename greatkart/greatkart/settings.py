@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     
+    "widget_tweaks",
+    
     'GKart',
     'category',
     'accounts',
@@ -92,6 +94,7 @@ DATABASES = {
     }
 }
 
+AUTH_USER_MODEL = 'accounts.Account'
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -116,11 +119,8 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'UTC'
-
 USE_I18N = True
-
 USE_TZ = True
 
 
@@ -133,7 +133,23 @@ STATIC_URL = 'static/'
 MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
+
+from django.contrib.messages import constants as messages
+
+MESSAGE_TAGS = {
+    messages.ERROR: "danger",   # name boostrap class if use messages.error
+    messages.INFO: "primary",
+}
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# SMTP configuration 
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT  = 587
+EMAIL_HOST_USER = 'meemeemiimii5@gmail.com'
+EMAIL_HOST_PASSWORD = 'kgyh bepd poch jtnf'
+EMAIL_USE_TLS = True

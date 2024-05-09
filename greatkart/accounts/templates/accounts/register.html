@@ -1,0 +1,81 @@
+{% extends 'GKart/base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+
+{% block content %}
+<!-- ========================= SECTION CONTENT ========================= -->
+<section class="section-content padding-y">
+
+    <!-- ============================ COMPONENT REGISTER   ================================= -->
+        <div class="card mx-auto" style="max-width:520px; margin-top:40px;">
+          <article class="card-body">
+            {% include 'GKart/includes/alert.html' %}
+            <header class="mb-4"><h4 class="card-title">Sign up</h4></header>
+            <form action="{% url 'register' %}" method="POST">
+                {% csrf_token %}
+                <div class="form-row">
+                    <div class="col form-group">
+                        <label>First name</label>
+                        {% render_field form.first_name class+="form-control" placeholder="Enter First Name" %}
+                    </div> <!-- form-group end.// -->
+                    <div class="col form-group">
+                        <label>Last name</label>
+                        {% render_field form.last_name class+="form-control" placeholder="Enter Last Name" %}
+                    </div> <!-- form-group end.// -->
+                </div> <!-- form-row end.// -->
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label>Email Address</label>
+                        {% render_field form.email class+="form-control" placeholder="Enter Email Address" %}
+                    </div> <!-- form-group end.// -->
+                    <div class="form-group col-md-6">
+                        <label>Phone Number</label>
+                        {% render_field form.phone_number class+="form-control" placeholder="Enter Phone Number" %}
+                    </div> <!-- form-group end.// -->
+                </div> <!-- form-row.// -->
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label>Create password</label>
+                        {{form.password}}
+                    </div> <!-- form-group end.// --> 
+                    <div class="form-group col-md-6">
+                        <label>Repeat password</label>
+                        {{form.confirm_password}}
+                    </div> <!-- form-group end.// -->  
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-block"> Register  </button>
+                </div> <!-- form-group// -->      
+            </form>
+
+
+            {% comment %} {% for value in form.values %}
+                {% for error in form.value.errors  %}
+                    <p class="text-danger"> {{error}} </p>
+                {% endfor %}
+            {% endfor %} {% endcomment %}
+
+            {% for error in form.email.errors  %}
+                <p class="text-danger"> {{error}} </p>
+            {% endfor %}
+
+            {% for error in form.non_field_errors %}
+                <p class="text-danger"> {{error}} </p>
+            {% endfor %}
+            </article><!-- card-body.// -->
+        </div> <!-- card .// -->
+        <p class="text-center mt-4">Have an account? <a href="">Log In</a></p>
+        <br><br>
+
+       
+<!-- ============================ COMPONENT REGISTER  END.// ================================= -->
+
+
+</section>
+<!-- ========================= SECTION CONTENT END// ========================= -->
+    
+    
+{% endblock %}
